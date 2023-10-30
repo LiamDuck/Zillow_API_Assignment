@@ -1,6 +1,9 @@
 // Import express
 var express = require("express");
 var app = express();
+
+var port = process.argv[2];
+
 // Database
 var database = [
 	{ price: 240000, city: "baltimore" },
@@ -65,5 +68,5 @@ app.get("/v1/zillow/prices", function (req, res) {
 });
 
 // set the server to listening
-console.log("server is up");
-app.listen(3000);
+console.log("server is listening on port: ", port);
+app.listen(port);
