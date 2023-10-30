@@ -47,8 +47,22 @@ app.get("/v1/zillow/houses", function (req, res) {
 	// if (req.query.city)
 });
 
-// set up get request
-app.get("/v1/zillow/prices", function () {});
+// set up get request for prices of houses in the database
+// requests have a parameter price
+// output will be a list of houses under the price provided
+app.get("/v1/zillow/prices", function (req, res) {
+	if (req.query.usd == undefined) {
+		res.status(404).send("usd must be defined");
+	} else {
+		var output = [];
+		database.forEach(function (entry) {
+			if (req.query.usd >= entry.price) {
+				output.push(entry);
+			}
+		});
+		res.status(200).send(output);
+	}
+});
 
 // set the server to listening
 console.log("server is up");
